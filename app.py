@@ -29,7 +29,7 @@ def index():
     
     #si hay busqueda no paginamos xd
     if name: 
-        response = request.get(API_URL, params={"name": name})
+        response = requests.get(API_URL, params={"name": name})
         # 200 dice que ta to bien
         if response.status_code != 200:
             return render_template("index.html", character=[], search = True, error_message = "personaje no encontrado....")
@@ -38,12 +38,11 @@ def index():
         
 
     # esto es nuestro listado normal con las paginas.
-    response = requests.get(API_URL, params={"page": page})
-
+        response = requests.get(API_URL, params={"page": page})
     data = response.json()
-    return render_template("index.html", characters=data["results"], info=data["info"],page= int(page), search= False)\
-    
 
+    return render_template("index.html", characters=data["results"], info=data["info"],page= int(page), search= False)
+    
 
 @app.route("/save", methods = ["POST"])
 def save():
